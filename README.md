@@ -42,3 +42,7 @@ A simple Google Apps Script that automatically syncs any RSS feed (like USCCB da
 * 🧹 **Clean Text:** Removes messy HTML tags from post descriptions.
 * 🚫 **No Duplicates:** Automatically removes duplicate entries on the same day.
 * 🔔 **Mobile Notifications:** Sends a popup reminder directly to your phone.
+---
+
+## 🌐 Looking for RSS Feeds?
+Browse our comprehensive [Categorized RSS Feeds Directory (FEEDS.md)](FEEDS.md) for ready-to-use feed URLs spanning Catholic readings, Indian & Global news, Football, Tech, and more!
