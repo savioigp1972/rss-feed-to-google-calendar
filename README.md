@@ -1,37 +1,44 @@
-# USCCB Daily Readings to Google Calendar Sync
+# RSS Feed to Google Calendar Sync
 
-An automated Google Apps Script that fetches daily Roman Catholic Mass readings directly from the USCCB (United States Conference of Catholic Bishops) RSS feed and syncs them seamlessly to a dedicated Google Calendar.
-
-## Features
-* **Direct USCCB Fetching:** Bypasses CORS and bot blocks by employing custom request headers.
-* **Smart Event Scheduling:** Creates clean, timed calendar entries (6:00 AM) with clean descriptions (HTML tags stripped).
-* **Automatic Phone Reminders:** Configured to trigger daily push notifications (e.g., at 7:00 AM) directly on synced mobile devices.
-* **Duplicate Protection:** Automatically detects and purges duplicate entries before adding updated readings for any given day.
-* **Configurable via Script Properties:** Securely reads configuration values (like calendar names) using Google Apps Script environment variables.
+A simple Google Apps Script that automatically syncs any RSS feed (like USCCB daily readings, blogs, or news) to a custom Google Calendar with daily phone reminders.
 
 ---
 
-## Setup Instructions
+## 🚀 Quick Setup Guide
 
-### 1. Create the Script
-1. Open [Google Apps Script](https://script.google.com).
-2. Create a **New Project**.
-3. Replace the default code in `Code.gs` with the project's script code.
+### Step 1: Create the Script
+1. Go to [script.google.com](https://script.google.com) and click **New Project**.
+2. Delete any code in the editor, paste the code from `Code.gs`, and click **Save** (💾).
 
-### 2. Configure Script Properties
-1. In the Apps Script sidebar, click on **Project Settings** (⚙️).
-2. Scroll to **Script Properties** and click **Add script property**.
-3. Add the following entry:
-   - **Property:** `CALENDAR_NAME`
-   - **Value:** `USCCB daily readings`
-4. Save properties.
+---
 
-### 3. Set Up Time-Driven Trigger
-To run the script automatically in the background:
-1. Click the **Triggers** icon (⏰) in the left sidebar.
-2. Click **+ Add Trigger**.
-3. Configure settings:
-   - **Choose which function to run:** `syncUSCCBReadings`
-   - **Select event source:** `Time-driven`
-   - **Select type of time based trigger:** `Day timer` (e.g., 1:00 AM to 2:00 AM)
-4. Click **Save** and grant the required permissions.
+### Step 2: Add Your Feed Details
+1. Click the **Project Settings** icon (⚙️) on the left sidebar.
+2. Scroll down to **Script Properties** and click **Add script property**.
+3. Add these 2 settings:
+
+| Property | Value |
+| :--- | :--- |
+| `CALENDAR_NAME` | `USCCB daily readings` *(or whatever name you want)* |
+| `FEED_URL` | `https://bible.usccb.org/readings.rss` *(or your RSS link)* |
+
+4. Click **Save script properties**.
+
+---
+
+### Step 3: Turn On Automatic Syncing
+1. Click the **Triggers** icon (⏰) on the left sidebar.
+2. Click **+ Add Trigger** (bottom right).
+3. Set the options to:
+   * **Which function to run:** `syncFeedToCalendar`
+   * **Event source:** `Time-driven`
+   * **Type of time trigger:** `Day timer` (e.g., 1am to 2am)
+4. Click **Save** and grant permissions if prompted.
+
+---
+
+## ✨ Features
+* 📅 **Automatic Sync:** Keeps your Google Calendar updated every day.
+* 🧹 **Clean Text:** Removes messy HTML tags from post descriptions.
+* 🚫 **No Duplicates:** Automatically removes duplicate entries on the same day.
+* 🔔 **Mobile Notifications:** Sends a popup reminder directly to your phone.
