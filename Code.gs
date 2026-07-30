@@ -1,9 +1,15 @@
-// ================= CONFIGURATION =================
-const USCCB_RSS_URL = "https://bible.usccb.org/readings.rss";
-const CALENDAR_NAME = "USCCB daily readings"; 
-// =================================================
+/**
+ * Generic RSS/Atom Feed to Google Calendar Sync
+ * Configured using Script Properties in Google Apps Script (Project Settings ⚙️)
+ */
 
-function syncUSCCBReadings() {
+function syncFeedToCalendar() {
+  const scriptProperties = PropertiesService.getScriptProperties();
+  
+  // Read configuration from Script Properties (with defaults)
+  const CALENDAR_NAME = scriptProperties.getProperty('CALENDAR_NAME') || "My RSS Feed Calendar";
+  const FEED_URL = scriptProperties.getProperty('FEED_URL') || "https://bible.usccb.org/readings.rss";
+
   let targetCalendar;
   const calendars = CalendarApp.getCalendarsByName(CALENDAR_NAME);
   
@@ -22,17 +28,23 @@ function syncUSCCBReadings() {
       "muteHttpExceptions": true
     };
 
-    const response = UrlFetchApp.fetch(USCCB_RSS_URL, options);
+    const response = UrlFetchApp.fetch(FEED_URL, options);
     
     if (response.getResponseCode() === 200) {
       const xmlText = response.getContentText();
       const document = XmlService.parse(xmlText);
       const root = document.getRootElement();
       const channel = root.getChild('channel');
+      
+      if (!channel) {
+        Logger.log("Could not find <channel> tag in XML feed.");
+        return;
+      }
+
       const items = channel.getChildren('item');
 
       items.forEach(function(item) {
-        const title = item.getChildText('title') || "Daily Mass Readings";
+        const title = item.getChildText('title') || "New Feed Entry";
         let description = item.getChildText('description') || "";
         
         // Clean HTML formatting tags from description
@@ -47,36 +59,36 @@ function syncUSCCBReadings() {
           dateObj = new Date(pubDateStr);
         }
 
-        // Set timed event range: Starts at 6:00 AM, Ends at 7:00 AM on that day
+        // Set timed event range: Starts at 6:00 AM on the publication day
         const startTime = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 6, 0, 0);
         const endTime = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 7, 0, 0);
 
-        // Search for existing events on that entire day (midnight to midnight)
+        // Search range for existing events on that day (midnight to midnight)
         const dayStart = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 0, 0, 0);
         const dayEnd = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), 23, 59, 59);
         
         const existingEvents = targetCalendar.getEvents(dayStart, dayEnd);
 
-        // 3. Delete any duplicates or existing USCCB reading events on that day
+        // Remove duplicate/existing events for that entry
         existingEvents.forEach(function(existingEvent) {
-          if (existingEvent.getTitle() === title || existingEvent.getTitle().includes("Reading")) {
-            Logger.log("Removing duplicate/existing event: " + existingEvent.getTitle());
+          if (existingEvent.getTitle() === title) {
+            Logger.log("Removing duplicate event: " + existingEvent.getTitle());
             existingEvent.deleteEvent();
           }
         });
 
-        // Create the new timed event
+        // Create new calendar event
         const newEvent = targetCalendar.createEvent(title, startTime, endTime, { description: description });
         
-        // Add phone popup notification 60 minutes before 6:00 AM (at 7:00 AM notification setting)
+        // Add mobile popup reminder (60 min before event start = 7:00 AM notification)
         newEvent.addPopupReminder(60); 
 
-        Logger.log("Added USCCB Reading (" + startTime.toLocaleString() + "): " + title);
+        Logger.log("Synced Event (" + startTime.toLocaleDateString() + "): " + title);
       });
     } else {
-      Logger.log("USCCB Feed HTTP Error: " + response.getResponseCode());
+      Logger.log("Feed HTTP Error Code: " + response.getResponseCode());
     }
   } catch (err) {
-    Logger.log("Error processing USCCB RSS: " + err.toString());
+    Logger.log("Error processing feed: " + err.toString());
   }
 }
