@@ -1,74 +1,78 @@
-# 📖 USCCB Daily Readings RSS to Google Calendar 🗓️✨
+# 📡 RSS Feed to Google Calendar Sync 🗓️✨
 
-An automated **Google Apps Script** ⚙️ that fetches daily Catholic Mass readings from the official **USCCB RSS feed** (`https://bible.usccb.org/readings.rss`) ✝️ and syncs them directly into a dedicated Google Calendar! 📅
+> **A lightweight Google Apps Script to automatically sync custom RSS feeds (news, sports, hobbies, Catholic devotions, life hacks, and more) into Google Calendar.**
+
+An automated, highly flexible **Google Apps Script** ⚙️ that parses any RSS or Atom feed (configured easily via **Script Properties**) and automatically posts feed entries as timed events into a dedicated Google Calendar! 📅
 
 ---
 
-## 🌟 Features 🚀
+## 🌟 Key Features 🚀
 
-* 📡 **Live RSS Sync:** Parses the official USCCB feed for daily Mass readings.
-* 📆 **Dedicated Calendar:** Automatically creates and manages a calendar named `"USCCB daily readings"`.
-* 🛡️ **Anti-Duplicate Protection:** Checks existing entries before creating new ones to avoid calendar clutter.
-* ⏰ **Automated Daily Sync:** Runs hands-free every morning using Google Apps Script triggers.
+* 📡 **Universal RSS/Atom Support:** Syncs news, sports feeds, daily devotions, tech updates, blogs, or custom feeds directly to your calendar!
+* ⚙️ **Dynamic Configuration:** Uses `PropertiesService` so you can set custom calendar names and feed URLs without editing code.
+* 🌐 **User-Agent Header Support:** Sends proper browser headers to prevent external servers from blocking feed requests.
+* 🛡️ **Smart Anti-Duplicate Protection:** Checks existing entries before creating new ones to keep your calendar neat and uncluttered.
+* ⏰ **Hands-Free Automation:** Runs on autopilot using Google Apps Script time-driven triggers.
+* 🧼 **Clean Formatting:** Automatically strips raw HTML tags and formatting from feed descriptions so event notes stay easy to read.
 
 ---
 
 ## 📸 Execution Log Preview 📊
 
-Here is the script verifying daily readings and skipping duplicates:
+Here is the script in action, verifying feed entries date-by-date and skipping duplicates:
 
-![USCCB Daily Readings Execution Log](execution-logrss.png)
+![RSS Sync Execution Log](execution-logrss.png)
 
-> **Note:** The script checks daily calendar entries first and skips event creation if the entry already exists! 🛡️✨
+> **Note:** The script verifies existing calendar entries first to prevent double-booking or cluttered schedules! 🛡️✨
 
 ---
 
-## 🛠️ Detailed Step-by-Step Setup Guide 🚀
+## 🛠️ Step-by-Step Setup Guide 🚀
 
-Follow these straightforward steps to set up the script in under 5 minutes:
+Follow these straightforward steps to get your automated RSS feed sync running in under 5 minutes:
 
 ### Step 1: Open Google Apps Script 💻
 1. Go to **[script.google.com](https://script.google.com)** and log in with your Google Account.
 2. Click **+ New project** in the top left corner.
-3. Rename the project at the top from *Untitled project* to **USCCB DAILY READINGS**.
+3. Rename the project at the top from *Untitled project* to **RSS Feed Calendar Sync**.
 
-### Step 2: Paste the Code 📋
-1. Delete any code currently in the `Code.gs` editor window.
+### Step 2: Paste the Script Code 📋
+1. Delete any existing code inside the `Code.gs` editor window.
 2. Copy the script code from this repository and paste it into `Code.gs`.
 3. Click the **Save icon** 💾 (or press `Ctrl + S` / `Cmd + S`).
 
-### Step 3: Add Script Properties ⚙️ *(Optional / Recommended)*
-1. Click the **Project Settings icon** ⚙️ *(the gear icon on the left navigation bar)*.
+### Step 3: Configure Script Properties ⚙️
+1. Click the **Project Settings icon** ⚙️ *(gear icon on the left navigation bar)*.
 2. Scroll down to the **Script Properties** section.
-3. Click **Add script property** and enter:
-   * **Property:** `CALENDAR_NAME` | **Value:** `USCCB daily readings`
-   * **Property:** `FEED_URL` | **Value:** `https://bible.usccb.org/readings.rss`
+3. Click **Add script property** and enter your desired feed info:
+   * **Property:** `CALENDAR_NAME` | **Value:** `My RSS Feed Calendar` *(or your custom calendar name)*
+   * **Property:** `FEED_URL` | **Value:** `https://your-rss-feed-url.com/feed.xml` *(paste your RSS/Atom URL here)*
 4. Click **Save script properties** 💾.
 
-### Step 4: First Test Run & Grant Authorizations 🔑
-1. Click the **Editor icon** `< >` on the left navigation bar to return to your code.
-2. In the top toolbar dropdown menu next to **Debug**, select your main function (`syncUSCCBReadings` or `syncFeedToCalendar`).
+### Step 4: First Test Run & Authorize 🔑
+1. Click the **Editor icon** `< >` on the left bar to return to your code.
+2. In the top toolbar dropdown menu next to **Debug**, select `syncFeedToCalendar` (or `syncUSCCBReadings`).
 3. Click **Run** 🟢.
-4. An **"Authorization required"** window will pop up:
+4. An **"Authorization required"** prompt will appear:
    * Click **Review permissions**.
-   * Choose your Google Account.
-   * Click **Advanced** $\rightarrow$ click **Go to USCCB DAILY READINGS (unsafe)**.
-   * Click **Allow** to grant access to Google Calendar and external URLs.
-5. Check the **Execution log** at the bottom to confirm successful execution!
+   * Select your Google Account.
+   * Click **Advanced** $\rightarrow$ click **Go to RSS Feed Calendar Sync (unsafe)**.
+   * Click **Allow** to grant access to Google Calendar and UrlFetchApp.
+5. Check the **Execution log** at the bottom to verify successful syncing!
 
 ### Step 5: Automate Daily Execution ⏰
-To have Google sync readings automatically every morning:
+To have Google sync your RSS feed automatically every morning:
 1. Click the **Triggers icon** ⏰ *(alarm clock on the left sidebar)*.
 2. Click **+ Add Trigger** (blue button in the bottom right corner).
-3. Configure the trigger options:
-   * **Choose which function to run:** `syncUSCCBReadings` *(or `syncFeedToCalendar`)*
+3. Set the configuration:
+   * **Choose which function to run:** `syncFeedToCalendar` *(or your main sync function)*
    * **Select event source:** `Time-driven`
    * **Select type of time based trigger:** `Day timer`
-   * **Select time of day:** `5am to 6am` *(or your preferred morning time)*
+   * **Select time of day:** Choose your preferred daily time (e.g., `5am to 6am`) ☕
 4. Click **Save** 💾!
 
 ---
 
 ## 📜 License 📄
 
-Distributed under the **MIT License** ⚖️. Free for personal or community use! 🤝🎉
+Distributed under the **MIT License** ⚖️. Free for personal, open-source, or community use! 🤝🎉
