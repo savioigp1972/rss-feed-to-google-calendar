@@ -49,6 +49,8 @@ Follow these straightforward steps to get your automated RSS feed sync running i
    * **Property:** `FEED_URL` | **Value:** `https://your-rss-feed-url.com/feed.xml` *(paste your RSS/Atom URL here)*
 4. Click **Save script properties** 💾.
 
+> 💡 **Need sample feeds to test?** Check out our [`FEEDS.md`](FEEDS.md) file for a curated list of ready-to-use RSS URLs across news, tech, devotions, sports, and life hacks!
+
 ### Step 4: First Test Run & Authorize 🔑
 1. Click the **Editor icon** `< >` on the left bar to return to your code.
 2. In the top toolbar dropdown menu next to **Debug**, select `syncFeedToCalendar` (or `syncUSCCBReadings`).
@@ -70,6 +72,17 @@ To have Google sync your RSS feed automatically every morning:
    * **Select type of time based trigger:** `Day timer`
    * **Select time of day:** Choose your preferred daily time (e.g., `5am to 6am`) ☕
 4. Click **Save** 💾!
+
+---
+
+## 📂 Ready-to-Use Feed Directory (`FEEDS.md`) 📜
+
+Check out the included **[`FEEDS.md`](FEEDS.md)** file in this repository for a collection of popular RSS feeds you can plug directly into your script settings, including:
+* ✝️ Daily Mass Readings & Devotions
+* 📰 World & Local News
+* 💻 Tech & Programming Updates
+* ⚽ Sports Schedules & News
+* 💡 Life Hacks & Productivity
 
 ---
 
