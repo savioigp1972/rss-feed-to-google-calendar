@@ -35,10 +35,10 @@ Here is how an aggregated RSS entry (such as USCCB Daily Readings) looks inside 
 
 ---
 
-### 💻 Apps Script Execution Log
-Verification of daily calendar entries and duplicate skipping in action:
+### 🖥️ Google Calendar Desktop Web View
+Synced RSS feed items (USCCB Daily Mass Readings) displayed directly on the Google Calendar desktop web interface:
 
-![RSS Sync Execution Log](execution-logrss.png)
+![Google Calendar Desktop View](google-calendar-web-preview.png)
 
 > **Note:** The script verifies existing calendar entries first to prevent double-booking or cluttered schedules! 🛡️✨
 ## 📸 Execution Log Preview 📊
