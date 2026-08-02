@@ -26,7 +26,21 @@ Choose whichever script setup works best for you:
 * 🧼 **Clean Formatting:** Automatically strips raw HTML tags and formatting from feed descriptions so event notes stay easy to read.
 
 ---
+## 📸 Screenshots & Previews 📊
 
+### 📱 Oppo Calendar Event Preview
+Here is how an aggregated RSS entry (such as USCCB Daily Readings) looks inside the Oppo Calendar app with clean formatting in the **Notes** section:
+
+![Oppo Calendar Event Preview](Screenshot_2026-08-02-13-27-35-46_cf28b0cf44b62ed04ed07c99930e5bbf.jpg)
+
+---
+
+### 💻 Apps Script Execution Log
+Verification of daily calendar entries and duplicate skipping in action:
+
+![RSS Sync Execution Log](execution-logrss.png)
+
+> **Note:** The script verifies existing calendar entries first to prevent double-booking or cluttered schedules! 🛡️✨
 ## 📸 Execution Log Preview 📊
 
 Here is the script in action, verifying feed entries date-by-date and skipping duplicates:
